@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - College Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://placehold.co/32x32?text=CMS">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>College CMS</h3>
+                <p>Management System</p>
+            </div>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="/dashboard" class="active">
+                        <span class="icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                
+                <li id="students-menu" style="display: none;">
+                    <a href="/modules/students">
+                        <span class="icon">👥</span>
+                        Students
+                    </a>
+                </li>
+                
+                <li id="faculty-menu" style="display: none;">
+                    <a href="/modules/faculty">
+                        <span class="icon">👨‍🏫</span>
+                        Faculty
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/modules/courses">
+                        <span class="icon">📚</span>
+                        Courses
+                    </a>
+                </li>
+                
+                <li id="fees-menu" style="display: none;">
+                    <a href="/modules/fees">
+                        <span class="icon">💰</span>
+                        Fees
+                    </a>
+                </li>
+                
+                <li id="exams-menu" style="display: none;">
+                    <a href="/modules/exams">
+                        <span class="icon">📝</span>
+                        Exams
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/modules/results">
+                        <span class="icon">📋</span>
+                        Results
+                    </a>
+                </li>
+                
+                <li id="reports-menu" style="display: none;">
+                    <a href="/modules/reports">
+                        <span class="icon">📈</span>
+                        Reports
+                    </a>
+                </li>
+                
+                <li id="users-menu" style="display: none;">
+                    <a href="/modules/users">
+                        <span class="icon">👤</span>
+                        Users
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/logout" onclick="return confirm('Are you sure you want to logout?')">
+                        <span class="icon">🚪</span>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-header">
+                <div class="header-title">
+                    <button class="sidebar-toggle d-md-none" type="button">
+                        <span>☰</span>
+                    </button>
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="user-info">
+                    <span id="user-welcome">Welcome, User</span>
+                    <span id="user-role" class="badge badge-info">User</span>
+                    <a href="/logout" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to logout?')">
+                        Logout
+                    </a>
+                </div>
+            </div>
+            
+            <div class="content-area">
+                <!-- Alert Container -->
+                <div id="alert-container"></div>
+
+                <!-- Dashboard Cards -->
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon students">👥</div>
+                            <div>
+                                <div class="card-title">Total Students</div>
+                            </div>
+                        </div>
+                        <div class="card-value" id="stats-students">0</div>
+                        <div class="card-description">Active enrolled students</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon faculty">👨‍🏫</div>
+                            <div>
+                                <div class="card-title">Faculty Members</div>
+                            </div>
+                        </div>
+                        <div class="card-value" id="stats-faculty">0</div>
+                        <div class="card-description">Active faculty members</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon courses">📚</div>
+                            <div>
+                                <div class="card-title">Total Courses</div>
+                            </div>
+                        </div>
+                        <div class="card-value" id="stats-courses">0</div>
+                        <div class="card-description">Available courses</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon fees">💰</div>
+                            <div>
+                                <div class="card-title">Fees Collected</div>
+                            </div>
+                        </div>
+                        <div class="card-value" id="stats-fees">$0.00</div>
+                        <div class="card-description">This month</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions and Recent Activities -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                    
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+                            <h3 style="margin: 0; color: #2c3e50; font-size: 20px;">Quick Actions</h3>
+                        </div>
+                        <div id="quick-actions" style="display: grid; gap: 15px;">
+                            <!-- Actions will be populated by JavaScript based on role -->
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activities -->
+                    <div class="card">
+                        <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+                            <h3 style="margin: 0; color: #2c3e50; font-size: 20px;">Recent Activities</h3>
+                        </div>
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            <div id="recent-activities">
+                                <div style="text-align: center; color: #6c757d; padding: 40px 20px;">
+                                    <div style="font-size: 48px; margin-bottom: 15px;">📭</div>
+                                    <p>Loading recent activities...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Overview (Admin Only) -->
+                <div id="system-overview" class="card" style="margin-top: 30px; display: none;">
+                    <div class="card-header" style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: #2c3e50; font-size: 20px;">System Overview</h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: 600; color: #e74c3c; margin-bottom: 5px;" id="pending-fees-count">
+                                0
+                            </div>
+                            <div style="color: #6c757d; font-size: 14px;">Pending Fees</div>
+                        </div>
+                        
+                        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: 600; color: #28a745; margin-bottom: 5px;">
+                                0
+                            </div>
+                            <div style="color: #6c757d; font-size: 14px;">Scheduled Exams</div>
+                        </div>
+                        
+                        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: 600; color: #007bff; margin-bottom: 5px;">
+                                0
+                            </div>
+                            <div style="color: #6c757d; font-size: 14px;">Active Users</div>
+                        </div>
+                        
+                        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: 600; color: #ffc107; margin-bottom: 5px;">
+                                2024
+                            </div>
+                            <div style="color: #6c757d; font-size: 14px;">Academic Year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script>
+        // Global variables
+        let currentUser = null;
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserSession();
+            loadDashboardStats();
+            setupQuickActions();
+            loadRecentActivities();
+        });
+        
+        async function loadUserSession() {
+            try {
+                const response = await fetch('/api/session');
+                if (response.ok) {
+                    currentUser = await response.json();
+                    updateUserInterface();
+                } else {
+                    // Redirect to login if session invalid
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Session error:', error);
+                window.location.href = '/';
+            }
+        }
+        
+        function updateUserInterface() {
+            if (!currentUser) return;
+            
+            // Update user info
+            document.getElementById('user-welcome').textContent = `Welcome, ${currentUser.username}`;
+            document.getElementById('user-role').textContent = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+            
+            // Update role badge color
+            const roleBadge = document.getElementById('user-role');
+            roleBadge.className = 'badge badge-' + 
+                (currentUser.role === 'admin' ? 'danger' : 
+                 currentUser.role === 'faculty' ? 'info' : 'success');
+            
+            // Show/hide menu items based on role
+            if (currentUser.role === 'admin' || currentUser.role === 'faculty') {
+                document.getElementById('students-menu').style.display = 'block';
+            }
+            
+            if (currentUser.role === 'admin') {
+                document.getElementById('faculty-menu').style.display = 'block';
+                document.getElementById('reports-menu').style.display = 'block';
+                document.getElementById('users-menu').style.display = 'block';
+                document.getElementById('system-overview').style.display = 'block';
+            }
+            
+            if (currentUser.role === 'admin' || currentUser.role === 'student') {
+                document.getElementById('fees-menu').style.display = 'block';
+            }
+            
+            if (currentUser.role === 'admin' || currentUser.role === 'faculty') {
+                document.getElementById('exams-menu').style.display = 'block';
+            }
+        }
+        
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch('/api/dashboard/stats');
+                if (response.ok) {
+                    const stats = await response.json();
+                    
+                    document.getElementById('stats-students').textContent = stats.students || 0;
+                    document.getElementById('stats-faculty').textContent = stats.faculty || 0;
+                    document.getElementById('stats-courses').textContent = stats.courses || 0;
+                    document.getElementById('stats-fees').textContent = '$' + (stats.fees_collected || 0).toLocaleString('en-US', {minimumFractionDigits: 2});
+                    
+                    if (currentUser && currentUser.role === 'admin') {
+                        document.getElementById('pending-fees-count').textContent = stats.pending_fees || 0;
+                    }
+                }
+            } catch (error) {
+                console.error('Stats loading error:', error);
+            }
+        }
+        
+        function setupQuickActions() {
+            if (!currentUser) return;
+            
+            const quickActions = document.getElementById('quick-actions');
+            let actions = [];
+            
+            if (currentUser.role === 'admin') {
+                actions = [
+                    { href: '/modules/students', icon: '➕', text: 'Add New Student', class: 'btn-success' },
+                    { href: '/modules/faculty', icon: '➕', text: 'Add New Faculty', class: 'btn-info' },
+                    { href: '/modules/courses', icon: '➕', text: 'Add New Course', class: 'btn-warning' },
+                    { href: '/modules/reports', icon: '📈', text: 'Generate Reports', class: 'btn-primary' }
+                ];
+            } else if (currentUser.role === 'faculty') {
+                actions = [
+                    { href: '/modules/students', icon: '👥', text: 'View Students', class: 'btn-success' },
+                    { href: '/modules/exams', icon: '📝', text: 'Schedule Exam', class: 'btn-info' },
+                    { href: '/modules/results', icon: '📋', text: 'Enter Results', class: 'btn-warning' },
+                    { href: '/modules/courses', icon: '📚', text: 'My Courses', class: 'btn-primary' }
+                ];
+            } else {
+                actions = [
+                    { href: '/modules/courses', icon: '📚', text: 'My Courses', class: 'btn-success' },
+                    { href: '/modules/results', icon: '📋', text: 'View Results', class: 'btn-info' },
+                    { href: '/modules/fees', icon: '💰', text: 'Fee Details', class: 'btn-warning' },
+                    { href: '/modules/exams', icon: '📝', text: 'Exam Schedule', class: 'btn-primary' }
+                ];
+            }
+            
+            quickActions.innerHTML = actions.map(action => 
+                `<a href="${action.href}" class="btn ${action.class}" style="text-decoration: none; display: block; text-align: center;">
+                    ${action.icon} ${action.text}
+                </a>`
+            ).join('');
+        }
+        
+        function loadRecentActivities() {
+            // Simulate recent activities
+            const activities = [
+                { icon: '👥', message: 'John Doe admitted to Computer Science', time: '2 hours ago' },
+                { icon: '💰', message: 'Jane Smith paid $2,500 tuition fee', time: '4 hours ago' },
+                { icon: '📝', message: 'Midterm exam scheduled for CS101', time: '1 day ago' },
+                { icon: '📋', message: 'Results published for Data Structures exam', time: '2 days ago' }
+            ];
+            
+            const activitiesContainer = document.getElementById('recent-activities');
+            
+            if (activities.length > 0) {
+                activitiesContainer.innerHTML = activities.map(activity => 
+                    `<div style="padding: 12px 0; border-bottom: 1px solid #f1f3f4; display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 500; color: #2c3e50; margin-bottom: 4px;">
+                                ${activity.icon} ${activity.message}
+                            </div>
+                            <div style="font-size: 12px; color: #6c757d;">
+                                ${activity.time}
+                            </div>
+                        </div>
+                    </div>`
+                ).join('');
+            } else {
+                activitiesContainer.innerHTML = `
+                    <div style="text-align: center; color: #6c757d; padding: 40px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">📭</div>
+                        <p>No recent activities to display.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "PORT=3000 next dev",
-    "build": "next build",
-    "start": "node server.js",
+    "dev": "node init && PORT=3000 next dev",
+    "build": "node init && next build",
+    "start": "node init && node server.js",
     "lint": "next lint",
     "server": "node server.js"
   },
