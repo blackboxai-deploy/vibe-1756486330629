@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Login to College Management System">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/x-icon" href="https://placehold.co/32x32?text=CMS">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="https://placehold.co/80x80?text=College+Management+System+Logo" alt="College Management System Logo" style="margin-bottom: 20px; border-radius: 50%;">
+                <h1>College Management System</h1>
+                <p>Please sign in to your account</p>
+            </div>
+            
+            <div id="alert-container"></div>
+            
+            <form id="loginForm" method="POST" action="/login" data-validate="true">
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-control" 
+                        required 
+                        autocomplete="username"
+                        placeholder="Enter your username or email"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control" 
+                        required 
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                    >
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Sign In
+                </button>
+            </form>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
+                <h4 style="color: #666; font-size: 16px; margin-bottom: 15px;">Demo Login Credentials</h4>
+                <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px; font-size: 14px;">
+                    <div style="margin-bottom: 10px;">
+                        <strong>Administrator:</strong><br>
+                        Username: <code>admin</code><br>
+                        Password: <code>admin123</code>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong>Faculty:</strong><br>
+                        Username: <code>faculty</code><br>
+                        Password: <code>faculty123</code>
+                    </div>
+                    <div>
+                        <strong>Student:</strong><br>
+                        Username: <code>student</code><br>
+                        Password: <code>student123</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script>
+        // Check for URL parameters (error/success messages)
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const message = urlParams.get('message');
+        
+        if (error) {
+            showAlert(error, 'danger');
+        }
+        if (message) {
+            showAlert(message, 'success');
+        }
+        
+        // Auto-focus username field
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.getElementById('username');
+            if (usernameField) {
+                usernameField.focus();
+            }
+            
+            // Add loading state to form submission
+            const form = document.getElementById('loginForm');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<span class="spinner"></span> Signing In...';
+                    }
+                });
+            }
+        });
+        
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
